@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.1-provisional",
+  "incident_id": "001",
+  "detected_at": "2026-10-24T14:05:00Z",
+  "alert": "Elevated error rate on checkout",
+  "diagnosis": {
+    "failing_component": "payment",
+    "root_cause": "Charge calls in the payment service return errors; checkout failures are downstream propagation.",
+    "category": "application_fault",
+    "confidence": "high",
+    "confidence_score": 0.9,
+    "escalate_to_human": false,
+    "unknowns": ["Why the charge calls fail internally is not visible in telemetry"],
+    "alternatives_ruled_out": [
+      { "hypothesis": "payment container down", "reason": "container_health shows running, no restarts" }
+    ]
+  },
+  "evidence": [
+    { "id": "E1", "type": "trace", "source": "query_traces payment only_errors", "reference": "<trace-id>", "observation": "Deepest error span is payment Charge", "verified": true },
+    { "id": "E2", "type": "metric", "source": "query_metrics error rate payment", "reference": "<metric>", "observation": "error rate 0.0 -> 0.5", "verified": true }
+  ],
+  "proposed_action": { "action": "toggle_feature_flag", "target": "<flag via Action API>", "reason": "Failure localised to payment charge path", "requires_human_approval": true, "dry_run_first": true, "rollback": "Re-apply previous flag value via Action API" },
+  "approval": { "status": "pending" }
+}
