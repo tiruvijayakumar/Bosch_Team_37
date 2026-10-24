@@ -35,9 +35,3 @@ Every dry run, approval, refusal, execution and kill-switch change is appended t
 ## Rules compliance
 Telemetry-only diagnosis (flag services, flag metrics and `feature_flag*` span attributes are blocked in the tools); no edits to demo source/config, `faultctl` or the scoring harness; no hard-coded answers; everything runs on the local laptop; allowlisted actions only.
 
-## Known limitations
-- Approval and the "agent never runs ictl.py" rule are enforced by code for the tools, but an agent with unrestricted terminal access could in principle run the CLI; keep Antigravity's terminal in review mode.
-- `tools/action_api.json` must be verified against the real Action API before execution.
-- Deploy history is container lifecycle data; the demo has no CI/CD system.
-- Log field names in OpenSearch vary by demo version; the agent discovers them at run time.
-- Alert intake is manual (`/incident-detect`); there is no automatic threshold watcher.
