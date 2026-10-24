@@ -1,0 +1,14 @@
+{
+  "verified": true,
+  "_note": "Verified against running Action API on 2026-10-24. All 4 dry-run endpoints confirmed ok.",
+  "base_url": "http://127.0.0.1:8099",
+  "headers": { "Authorization": "Bearer {token}" },
+  "dry_run": { "mode": "param", "param": "dry_run" },
+  "kubernetes": false,
+  "actions": {
+    "restart_service":         { "method": "POST", "path": "/actions/restart",  "body": { "incident_id": "{incident_id}", "service": "{target}" } },
+    "toggle_feature_flag":     { "method": "POST", "path": "/actions/flag",     "body": { "incident_id": "{incident_id}", "flag": "{flag}", "variant": "{variant}" } },
+    "throttle_load_generator": { "method": "POST", "path": "/actions/throttle", "body": { "incident_id": "{incident_id}", "users": "{users}" } },
+    "scale_service":           { "method": "POST", "path": "/actions/scale",    "body": { "incident_id": "{incident_id}", "service": "{target}", "replicas": "{replicas}" } }
+  }
+}
