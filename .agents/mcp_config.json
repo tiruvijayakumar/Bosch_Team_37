@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "opentelemetry": {
+      "disabled": false,
+      "serverUrl": "https://opentelemetry.mcp.kapa.ai"
+    },
+    "otel-readonly": {
+      "command": "python",
+      "args": [
+        "tools/otel_mcp.py"
+      ],
+      "env": {
+        "JAEGER_API": "http://localhost:8080/jaeger/ui/api/v3",
+        "PROMETHEUS_URL": "http://localhost:9090",
+        "OPENSEARCH_URL": "http://localhost:9200",
+        "OPENSEARCH_INDEX": "otel-logs-*"
+      }
+    },
+    "incident-actions": {
+      "command": "python",
+      "args": [
+        "tools/otel_actions_mcp.py"
+      ]
+    }
+  }
+}
